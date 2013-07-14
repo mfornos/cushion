@@ -1,0 +1,22 @@
+
+<div id="{{model.id}}" class="card {{ctype model.labels}}">
+  <div class="inner-card">
+    <span class="comments"><i class="icon-comments"></i> {{model.comments}}</span>
+    <span class="no">{{model.number}}</span>
+    <span class="title">{{model.title}}</span>
+    {{#if model.body}}
+    	<div class="body" style="display:none">
+      		{{{markdown model.body}}}
+    	</div>
+    {{/if}}
+    <div class="users">
+      {{> template_user model}}
+    </div>
+    <div class="labels">
+      {{#each model.labels}}
+      	<span class="label {{contrast color}}" style="background: #{{color}}">{{name}}</span>
+      {{/each}}
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,202 @@
+$iconSpritePath: "../images/glyphicons-halflings.png";
+$iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
+
+@import "sass-bootstrap/lib/bootstrap";
+@import "jquery-ui/theme";
+@import "faw/scss/font-awesome";
+
+
+/* ==============================================================================
+   Board Styles
+   ============================================================================ */
+
+html {}
+
+::-webkit-scrollbar {
+  height: .5em;
+  background: #404749;
+  width: .5em;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #323232;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-corner {
+  background: #404749;
+}
+
+::-webkit-resizer {
+  background: #404749;
+}
+
+body {
+  background: #434348;
+  color: #CCC;
+}
+
+.kanban-board {
+  margin: 30px 17px;
+  width: 98%;
+  h2.title, h3.title, h4.title, h5.title {
+    text-shadow: 0px 2px 1px #222;
+    color: #DCDCDC;
+    vertical-align: bottom;
+    .wip {
+      font-size: 1.3em;
+      color: #EDEDDD;
+    }
+    .wip.exceeded {
+      color: #D40838;
+    }
+    .wip.limit {
+      color: #F38630;
+    }
+  }
+  h2.title, h3.title {
+    padding-bottom: 15px;
+    text-align: center;
+    height: 40px;
+  }
+  h4.title, h5.title {
+
+  }
+}
+
+.card {
+  border: 2px solid #CCC;
+  background: #CCC;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -moz-box-shadow: 1px 1px 2px 1px #333;
+  -webkit-box-shadow: 1px 1px 2px 1px #333;
+  box-shadow: 1px 1px 2px 1px #333;
+  text-shadow: 0 0 15px #fff, 0 0 15px #fff;
+  margin: 5px 0 8px 0;
+  .inner-card {
+    color: #222;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    padding: 5px;
+    background: #F3F1E0;
+    cursor: default;
+    display: block;
+    overflow: hidden;
+    .title, .no {
+      font-size: 1.15em;
+    }
+    .comments {
+      float: right;
+    }
+    .labels {
+
+    }
+    .label {
+      display: inline-block;
+      font-size: 11px;
+      padding: 2px 4px;
+      border-radius: 2px;
+      box-shadow: inset 0 -1px 0 rgba(0,0,0,0.12);
+    }
+    .label.darker {
+      color: #212;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.4);
+    }
+    .label.lighter {
+      text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
+    }
+    .no {
+      font-weight: bold;
+    }
+    .big {
+      margin-right: 10%;
+    }
+    .medium {
+      margin-right: 5%;
+    }
+    .small {
+      margin-right: 1%;
+    }
+  }
+  .users {
+    display: block;
+    clear: both;
+    overflow: hidden;
+    margin-top: 5px;
+    .pict {
+      overflow: hidden;
+      display: block;
+      float: left;
+      margin-right: 5px;
+      border-radius: 2px;
+      width: 25px;
+      height: 25px;
+    }
+  }
+}
+
+.card.ui-selected {
+  -webkit-box-shadow: 0px 0px 0pt 2pt #CBE86B;
+  -moz-box-shadow: 0px 0px 0pt 2pt #CBE86B;
+  box-shadow: 0px 0px 0pt 2pt #CBE86B;
+}
+
+.column {
+  overflow: auto;
+  float: left;
+  .drag-zone {
+    background: #606570;
+    border-right: 1px solid #404749;
+    min-height: 200px;
+    padding: 7px 5px;
+  }
+  .card-holder {
+    height: 20px;
+    background-color: #828792;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+  }
+}
+
+.column.w3 {
+  width: 33%;
+}
+
+.column.w2 {
+  width: 50%;
+}
+
+.ui-sortable-helper .inner-card {
+  cursor: move;
+}
+
+/*
+ Card types & colors
+*/
+
+.story, .enhancement, .feature {
+  background-color: #498FD7;
+  border-color: #498FD7;
+  .inner-card {
+    background: #E6F1F6;
+  }
+  .comments {
+    color: #498FD7;
+  }
+}
+
+.bug {
+  background-color: #E94E77;
+  border-color: #E94E77;
+  .inner-card {
+    background: #FFE8C7;
+  }
+  .comments {
+    color: #E94E77;
+  }
+}
