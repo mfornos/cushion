@@ -7,7 +7,7 @@ Flexible and lightweight __prototype__ to build kanban views from issue trackers
 Getting Started
 ---------------
 
-1. git clone|fork
+1. git clone (or fork)
 2. bower install
 3. npm install
 4. grunt server
