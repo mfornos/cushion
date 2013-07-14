@@ -2,7 +2,7 @@
   App entry point
   a good place to define your Kanbans
 ###
-require ['kanban'], (Kanban) ->
+require ['kanban'], (Kanban)->
 
   ## http://developer.github.com/v3/issues/
   

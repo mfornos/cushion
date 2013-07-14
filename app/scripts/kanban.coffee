@@ -5,13 +5,14 @@ Kanban
 Usage:
 
   kanban = new Kanban [
-    new Stream
+    {
       url: 'https://api.github.com/repos/user/project/issues?state=open'
       el:  '#todo'
-
-    new Stream
+    }
+    {
       url: 'https://api.github.com/repos/user/project/issues?state=closed'
       el:  '#done'
+    }
   ]
 
   kanban.build()

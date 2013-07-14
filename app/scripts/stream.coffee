@@ -23,7 +23,7 @@ define ['jquery', 'backbone', 'handlebars'], ($, Backbone)->
 
       ## TODO backbone-poller to sync every N minutes
 
-    get: (cid) =>
+    get: (cid)=>
       @issues.get(cid)
 
     reset: =>
