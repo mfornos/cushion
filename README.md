@@ -12,6 +12,6 @@ Getting Started
 3. npm install
 4. grunt server
 
-Then peek and poke around the project... you will see code changes instantaneously.
+Then peek and poke around the project... you will see code changes instantly.
 
 To build a distribution run `grunt` or `grunt build`. An optimized deployable version will be created at _dist/_.
