@@ -7,10 +7,10 @@ Flexible and lightweight __prototype__ to build kanban views from issue trackers
 Getting Started
 ---------------
 
-# git clone|fork
-# bower install
-# npm install
-# grunt server
+1. git clone|fork
+2. bower install
+3. npm install
+4. grunt server
 
 Then peek and poke around the project... you will see code changes instantaniously.
 
