@@ -196,6 +196,7 @@ module.exports = function (grunt) {
                 files: {
                     src: [
                         '<%= yeoman.dist %>/scripts/{,*/}*.js',
+                        '!<%= yeoman.dist %>/scripts/vendor/marked.js',
                         '<%= yeoman.dist %>/styles/{,*/}*.css',
                         '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
                         '<%= yeoman.dist %>/styles/fonts/*'
@@ -286,9 +287,9 @@ module.exports = function (grunt) {
                         '.htaccess',
                         'images/{,*/}*.{webp,gif}',
                         'font/*',
-                        'bower_components/hbs/*',
-                        '../.tmp/scripts/template/**/*.js',
-                        'scripts/template/**/*.{hbs,json}'
+                        'bower_components/hbs/**/*',
+                        'scripts/template/**/*.{hbs,json}',
+                        'scripts/vendor/marked.js'
                     ]
                 }, {
                     expand: true,
@@ -296,6 +297,14 @@ module.exports = function (grunt) {
                     dest: '<%= yeoman.dist %>/images',
                     src: [
                         'generated/*'
+                    ]
+                }, {
+                    expand: true,
+                    dot: true,
+                    cwd: '.tmp/',
+                    dest: '<%= yeoman.dist %>',
+                    src: [
+                        'scripts/template/**/*.js'
                     ]
                 }]
             },

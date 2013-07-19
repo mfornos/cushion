@@ -26,6 +26,8 @@ require.config
     bootstrap: 
       deps: ['jquery']
       exports: 'jquery'
+    marked:
+      exports: 'marked'
 
 require ['app'], (App) ->
 

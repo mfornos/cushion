@@ -3,18 +3,20 @@
 Stream of issues/cards/tasks
 
 ###
-define ['jquery', 'backbone', 'handlebars'], ($, Backbone)->
+define ['jquery', 'backbone', 'underscore'], ($, Backbone, _)->
 
   class Stream
     
-    @issues
+    issues: {}
 
-    @streamView
+    streamView: {}
 
     constructor: (@options)->
 
     build: =>
-      @issues = new StreamModel [], url: @options.url
+
+      loc = if _.isFunction @options.url then @options.url @options.token else @options.url
+      @issues = new StreamModel [], url: loc
         
       @streamView = new StreamView collection: @issues, el: $(@options.el)
       @streamView.templates = @options.templates
@@ -53,7 +55,8 @@ define ['jquery', 'backbone', 'handlebars'], ($, Backbone)->
         
       @updateWIP()
 
-    appendCard: (card)->          
+    appendCard: (card)->
+
       v  = new CardView model: card
       id = $(@el).attr('id') ## kanban section id
 

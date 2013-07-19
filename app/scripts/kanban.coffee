@@ -22,35 +22,73 @@ define ['stream','jquery', 'jqueryui', 'bootstrap'], (Stream, $)->
 
   class Kanban
 
-    @streams = {}
-    @defaultDesc = 
+    streams: {}
+    token: {}
+
+    defaultDesc: 
       { 
         templates: 
           card: 'hbs!template/card'
       }
+    options:
+      {
+        selector: '.drag-zone'
+        placeholder: 'card-holder'
+
+        ## Callbacks
+        onDrop: (ref, item, token, from, to, stream, event, ui, element)->
+      }
 
     constructor: (@descriptors)->
+      $.ajaxSetup(cache: false)
 
-    build: (@options = {
-              selector: '.drag-zone'
-              placeholder: 'card-holder'
+    build: (opts)=> 
+      $.extend(@options, opts)
+      if @options.oauth then @oauthSupport() else @init()
 
-              ## Called when a card is dropped
-              onDrop: (item, stream, from, to, event, ui, element)->
-    })->
-      
-      @init()
-      @buildStream(desc) for desc in @descriptors
+    refresh: ->
+      stream.reset() for stream in @streams
 
     buildStream: (desc)->
 
-      mdesc = $.extend({}, Kanban.defaultDesc, desc)
-      stream = new Stream(mdesc)
-      Kanban.streams[mdesc.el] = stream
+      desc.token = @token
+      stream = new Stream($.extend({}, @defaultDesc, desc))
+      @streams[stream.options.el] = stream
       stream.build()
 
-    init: ->
+    oauthSupport: ->
 
+      $('#auth-tools').show()
+
+      # TODO check if cookie is still valid
+      @token = Cookies.read('access_token')
+      return @authOk() if @token
+
+      m = window.location.href.match(/\?code=(.*)/)
+      if m
+        $.getJSON(@options.oauth.gatekeeper(m[1]), (data)=>
+          if data.token
+            Cookies.write('access_token', data.token)
+            toUrl = (l) -> "#{l.protocol}//#{l.hostname}:#{l.port}#{l.pathname}"
+            window.location = toUrl window.location
+        ).error =>
+          console.log("Make sure that gatekeeper is running at #{@options.oauth.gatekeeper('code')}")
+      else
+        @options.beforeAuth()
+
+    authOk: ->
+      $.ajaxSetup( 
+        headers:
+          Authorization: "token #{@token}"
+      )
+      @options.onAuthOk(@)
+      @init()
+
+    logout: ->
+      Cookies.erase('access_token')
+      window.location = window.location
+
+    init: ->
       $(@options.selector).sortable(
         connectWith: @options.selector
         delay: 150 ## Needed to prevent accidental drag when trying to select
@@ -58,32 +96,45 @@ define ['stream','jquery', 'jqueryui', 'bootstrap'], (Stream, $)->
         cursor: 'move'
         ##handle: ".dragger",
         placeholder: @options.placeholder
-      ).droppable(drop: ( event, ui ) =>
-
+      ).droppable(drop: (event, ui) =>
+        
           to = $(event.target).attr('id')
           from = $('.card', ui.draggable).data('section')
-          s = Kanban.streams['#' + from]
+          s = @streams['#' + from]
 
           element = $(event.toElement)
           unless element.hasClass 'card'
             element = element.closest('.card')
 
-          i = s.get(element.attr('id'))
-          @options.onDrop(i, s, from, to, event, ui, element)
+          item = s.get(element.attr('id'))
 
-          ## console.log(i, element.attr('id'), element, element.attr('id'), event, to, from)
-
-          ## PATCH /repos/:owner/:repo/issues/:number
-          ##console.log(i.number, to)
-          ## on success s.reset()
+          @options.onDrop(@, item, @token, s, from, to, event, ui, element)
 
       ).disableSelection()
 
       @prepareDoc()
 
+      @buildStream(desc) for desc in @descriptors
+
     prepareDoc: ->
-      opts = @options
       $(document).click -> $('.ui-selected').removeClass('ui-selected')
 
- 
+
+  class Cookies
+
+    @read: (name)->
+      ca = document.cookie.split(';')
+      for p in ca
+        kv = p.split('=')
+        return kv[1] if kv[0] is name
+   
+    @write: (name, value, expire = '2015-01-01 12:00:00')->
+      today = new Date()
+      expires = new Date(expire)      
+      document.cookie = "#{name}=#{escape(value)};expires=#{expires.toGMTString()}"
+
+    @erase: (name)->
+      Cookies.write(name, '', '1970-01-01 12:00:00')
+   
+
   Kanban

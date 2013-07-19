@@ -1,5 +1,5 @@
-define 'template/helpers/markdown', ['handlebars', 'marked'], (Handlebars) -> 
+define 'template/helpers/markdown', ['handlebars', 'marked'], (Handlebars, marked) -> 
   markdown = (context, options)->
-    window.marked context
+  	marked context
  
   Handlebars.registerHelper('markdown', markdown)
