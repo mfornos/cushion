@@ -76,6 +76,25 @@ header {
     text-decoration: none;
     color: #FFF;
   }
+  #close {
+    color: white;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 5px 10px 7px 10px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    display: block;
+    float: left;
+    margin-left: 15px;
+    margin-top: 5px;
+    font-size: 18px;
+  }
+  #close.active, #close:hover {
+    background: #FF615E;
+    color: #323237;
+    text-decoration: none;
+    cursor: pointer;
+  }
   #nav {
     float: right;
     margin-top: 4px;
@@ -96,7 +115,7 @@ header {
       text-decoration: none;
       cursor: pointer;
     }
-    span#uname {
+    .uname {
       padding: 10px 20px;
       display: block;
       float: left;
@@ -112,6 +131,7 @@ header {
   left: 50%;
   width: 500px;
   margin-left: -250px;
+  color: #333;
 }
 
 .kanban-board {

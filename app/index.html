@@ -21,21 +21,31 @@
     </head>
     <body>
         <header id="auth-tools" style="display:none;">
-            <button type="button" id="close" class="close">&times;</button>
+            <span id="close" style="display:none;">&times;</span>
             <a class="brand" href="#">My Kanban</a>
             <div id="nav">
-                <a id="login"><i class="icon-github-alt"></i> Login with Github</a>
+                <span id ="login-wrap">
+                    <span class="uname">Not logged in!</span>
+                    <a class="login"><i class="icon-github-alt"></i> Login with Github</a>
+                </span>
                 <span id="logout-wrap" style="display:none;">
-                    <span id="uname"></span> 
-                    <a id="logout">logout</a>
+                    <span class="uname"></span> 
+                    <a class="logout">logout</a>
                 </span>
             </div>
             <div id="puller"></div>
         </header>
 
         <!-- Welcome message for first time users when oauth is enabled -->
-        <div id="welcome" class="alert alert-info" style="display:none;">
-            <p>Hello bla blabla<p>
+        <div id="welcome" class="modal hide fade">
+            <div class="modal-body">
+                <p>
+                    Please, log-in to wire your target issue tracker. Thank you.
+                </p>
+                <p>
+                    <a class="login btn btn-large"><i class="icon-github-alt"></i> Login with Github</a>
+                </p>
+            </div>
         </div>
 
         <div class="main">

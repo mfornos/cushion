@@ -40,12 +40,11 @@ define ['stream','jquery', 'jqueryui', 'bootstrap'], (Stream, $)->
       }
 
     constructor: (@descriptors)->
-      $.ajaxSetup(
+      $.ajaxSetup
         cache: false
         headers:
           Accept: 'application/json'
           'Content-Type': 'application/json'
-      )
 
     build: (opts)=> 
       $.extend(@options, opts)
@@ -79,16 +78,17 @@ define ['stream','jquery', 'jqueryui', 'bootstrap'], (Stream, $)->
         ).error =>
           console.log("Make sure that gatekeeper is running at #{@options.oauth.gatekeeper('code')}")
       else
-        @options.beforeAuth()
+        @options.oauth.beforeAuth()
 
     authOk: ->
-      $.ajaxSetup( 
+      $.ajaxSetup
+        cache: false 
         headers:
           Authorization: "token #{@token}"
           Accept: 'application/json'
           'Content-Type': 'application/json'
-      )
-      @options.onAuthOk(@)
+
+      @options.oauth.onAuthOk(@)
       @init()
 
     logout: ->
@@ -115,7 +115,7 @@ define ['stream','jquery', 'jqueryui', 'bootstrap'], (Stream, $)->
 
           item = s.get(element.attr('id'))
 
-          @options.onDrop(@, item, @token, s, from, to, event, ui, element)
+          @options.onDrop(@, item, @token, from, to, s, event, ui, element)
 
       ).disableSelection()
 
