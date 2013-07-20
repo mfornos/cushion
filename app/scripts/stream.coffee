@@ -33,8 +33,16 @@ define ['jquery', 'backbone', 'underscore'], ($, Backbone, _)->
       @showStream()
 
     showStream: =>
-      @issues.fetch().complete => @streamView.render()
-
+      @issues.fetch(
+        beforeSend: =>
+          $(@streamView.el).text('Loading...')
+        error: (model, e)=>
+          console.log(model, e)
+          $(@streamView.el).text("#{e.status} #{e.responseJSON.message}")
+        success: =>
+          $(@streamView.el).empty()
+          @streamView.render()
+      )
 
   class CardModel extends Backbone.Model 
     defaults : ->
@@ -68,16 +76,21 @@ define ['jquery', 'backbone', 'underscore'], ($, Backbone, _)->
       t = $('#' + card.id, el)
 
       t.click (e)->
-        $(@).toggleClass 'ui-selected'
+        ## do something on click
         e.stopPropagation()
         e.preventDefault()
 
       t.dblclick (e) ->
-        body = $('div.body', $(@))
-        if body.length then body.slideToggle('fast')
+        card = $(@).closest('.card')
+        body = $('div.body', card)
+        if body.length 
+          body.slideToggle('fast')
+          $('.has-content', card).toggle()
         e.preventDefault()
 
       t.data('section', id)
+
+      $('.tip', t).tooltip(container: 'body')
 
 
     updateWIP: ->

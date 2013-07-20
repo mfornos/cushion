@@ -1,4 +1,5 @@
 
 {{#users .}}
-  <span style="background-image:url('{{avatar_url}}&s=25');" class="pict"></span>
+  <span style="background-image:url('{{avatar_url}}&s=25');" class="pict tip"
+        data-toggle="tooltip" data-placement="top" data-original-title="{{login}}"></span>
 {{/users}}

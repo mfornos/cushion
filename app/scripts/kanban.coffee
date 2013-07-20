@@ -40,7 +40,12 @@ define ['stream','jquery', 'jqueryui', 'bootstrap'], (Stream, $)->
       }
 
     constructor: (@descriptors)->
-      $.ajaxSetup(cache: false)
+      $.ajaxSetup(
+        cache: false
+        headers:
+          Accept: 'application/json'
+          'Content-Type': 'application/json'
+      )
 
     build: (opts)=> 
       $.extend(@options, opts)
@@ -80,6 +85,8 @@ define ['stream','jquery', 'jqueryui', 'bootstrap'], (Stream, $)->
       $.ajaxSetup( 
         headers:
           Authorization: "token #{@token}"
+          Accept: 'application/json'
+          'Content-Type': 'application/json'
       )
       @options.onAuthOk(@)
       @init()
@@ -94,7 +101,7 @@ define ['stream','jquery', 'jqueryui', 'bootstrap'], (Stream, $)->
         delay: 150 ## Needed to prevent accidental drag when trying to select
         opacity: 0.6
         cursor: 'move'
-        ##handle: ".dragger",
+        ## handle: '.ui-selected .dragger'
         placeholder: @options.placeholder
       ).droppable(drop: (event, ui) =>
         
@@ -112,12 +119,7 @@ define ['stream','jquery', 'jqueryui', 'bootstrap'], (Stream, $)->
 
       ).disableSelection()
 
-      @prepareDoc()
-
       @buildStream(desc) for desc in @descriptors
-
-    prepareDoc: ->
-      $(document).click -> $('.ui-selected').removeClass('ui-selected')
 
 
   class Cookies

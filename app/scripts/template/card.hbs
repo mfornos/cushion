@@ -1,22 +1,29 @@
 
 <div id="{{model.id}}" class="card {{ctype model.labels}}">
-  <div class="inner-card">
+  <div class="inner-card dragger">
     <span class="comments"><i class="icon-comments"></i> {{model.comments}}</span>
     <span class="title">{{model.title}}</span>
     {{#if model.body}}
+      <span class="has-content"><i class="icon-ellipsis-horizontal"></i></span>
     	<div class="body" style="display:none">
       		{{{markdown model.body}}}
     	</div>
     {{/if}}
-    <div class="users">
-      {{> template_user model}}
+    <div class="foot">
+      <div class="users">
+        {{> template_user model}}
+      </div>
+      <div class="labels">
+        {{#each model.labels}}
+          <span class="label {{contrast color}}" style="background: #{{color}}">{{name}}</span>
+        {{/each}}
+      </div>
+      <div class="signs">
+        <a href="{{model.html_url}}" class="tip" data-toggle="tooltip" data-placement="top" data-original-title="Open in Github">
+          <span class="no">#{{model.number}}</span>
+        </a>
+      </div>
     </div>
-    <div class="labels">
-      {{#each model.labels}}
-      	<span class="label {{contrast color}}" style="background: #{{color}}">{{name}}</span>
-      {{/each}}
-    </div>
-    <span class="no">#{{model.number}}</span>
   </div>
 </div>
 

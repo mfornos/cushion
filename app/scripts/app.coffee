@@ -9,23 +9,23 @@ require ['kanban'], (Kanban)->
   kanban = new Kanban [ 
         ## paulmillr/ostio
         ## mitsuhiko/flask
-        { url: 'https://api.github.com/repos/paulmillr/ostio/issues?state=open', el:  '#todo' }
-        { 
-          el:  '#urgent' 
-          url: 'https://api.github.com/repos/mfornos/humanize/issues?state=open' 
-        }
-        { 
-          el:  '#done' 
-          url: 'https://api.github.com/repos/mfornos/humanize/issues?state=closed'
-        }
-        ##{ url: 'https://api.github.com/repos/paulmillr/ostio/issues?state=closed', el:  '#done' } 
+        { url: 'https://api.github.com/repos/mitsuhiko/flask/issues?state=open', el:  '#todo' }
+        ##{ 
+        ##  el:  '#urgent' 
+        ##  url: 'https://api.github.com/repos/mfornos/xxx/issues?state=open' 
+        ##}
+        ##{ 
+        ##  el:  '#done' 
+        ##  url: 'https://api.github.com/repos/mfornos/xxx/issues?state=closed'
+        ##}
+        { url: 'https://api.github.com/repos/mitsuhiko/flask/issues?state=closed', el:  '#done' } 
     ]
   
   kanban.build(
     ## oauth:
     ##  gatekeeper: (code)-> "http://localhost:9999/authenticate/#{code}"
     ## Callbacks
-    ## onDrop: onDrop
+    onDrop: onDrop
 
     onAuthOk: (k)->
       $('header #close').click (e)->
@@ -40,8 +40,7 @@ require ['kanban'], (Kanban)->
 
       $.getJSON(
         'https://api.github.com/user'
-        (user)->
-          $('#uname').text(user.login)
+        (user)-> $('#uname').text(user.login)
       )
 
       $('.main').click ->
@@ -57,15 +56,11 @@ require ['kanban'], (Kanban)->
       $('#welcome').show('size')
       $('header').css('margin-top', '0')
       $('#login').click ->
-        window.location = 'https://github.com/login/oauth/authorize?client_id=YOUR_CLIENT_ID&scope=public_repo'
+        window.location = 'https://github.com/login/oauth/authorize?client_id=YOUR_CLIENT_ID&scope=repo'
   )
 
   onDrop = (ref, item, token, from, to)->
     $.ajax(
-            headers :
-                Accept: 'application/json'
-                'Content-Type': 'application/json'
-
             url : "https://api.github.com/repos/mfornos/xxx/issues/#{item.get('number')}?access_token=#{token}"
             type : 'PATCH'
             data : JSON.stringify(state: if to == 'done' then 'closed' else 'open')
