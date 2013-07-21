@@ -1,8 +1,8 @@
 
 <div id="{{model.id}}" class="card {{ctype model.labels}}">
   <div class="inner-card dragger">
-    <span class="comments"><i class="icon-comments"></i> {{model.comments}}</span>
-    <span class="title">{{model.title}}</span>
+    <a class="comments tip" data-toggle="tooltip" data-placement="top" data-original-title="Toggle issue comments"><i class="icon-comments"></i> {{model.comments}}</a>
+    <span class="title tip" data-toggle="tooltip" data-placement="top" data-original-title="Toggle issue content">{{model.title}}</span>
     {{#if model.body}}
       <span class="has-content"><i class="icon-ellipsis-horizontal"></i></span>
     	<div class="body" style="display:none">
@@ -11,7 +11,9 @@
     {{/if}}
     <div class="foot">
       <div class="users">
-        {{> template_user model}}
+        {{#users model}}
+          {{> template_user}}
+        {{/users}}
       </div>
       <div class="labels">
         {{#each model.labels}}
@@ -24,6 +26,7 @@
         </a>
       </div>
     </div>
+    <div class="comments-content" style="display:none;"></div>
   </div>
 </div>
 

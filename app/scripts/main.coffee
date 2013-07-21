@@ -4,7 +4,10 @@
 require.config
   paths: 
     jquery: '../bower_components/jquery/jquery'
+    jqueryui: '../bower_components/jquery-ui/ui/jquery-ui'
+    jqueryspin: '../bower_components/spin.js/jquery.spin'
     bootstrap: 'vendor/bootstrap'
+    spin: '../bower_components/spin.js/spin'
     marked: 'vendor/marked'
     hbs: '../bower_components/hbs/hbs'
     i18nprecompile: '../bower_components/hbs/hbs/i18nprecompile'
@@ -12,7 +15,6 @@ require.config
     underscore: '../bower_components/hbs/hbs/underscore'
     backbone: '../bower_components/backbone-amd/backbone'
     json2: '../bower_components/hbs/hbs/json2'
-    jqueryui: '../bower_components/jquery-ui/ui/jquery-ui'
   shim: 
     jqueryui: 'jquery'
     underscore: 

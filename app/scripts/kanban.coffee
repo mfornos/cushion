@@ -18,7 +18,7 @@ Usage:
   kanban.build()
 
 ###
-define ['stream','jquery', 'jqueryui', 'bootstrap'], (Stream, $)->
+define ['stream','jquery', 'jqueryui', 'jqueryspin', 'bootstrap'], (Stream, $)->
 
   class Kanban
 
@@ -29,6 +29,7 @@ define ['stream','jquery', 'jqueryui', 'bootstrap'], (Stream, $)->
       { 
         templates: 
           card: 'hbs!template/card'
+          comment: 'hbs!template/comment'
       }
     options:
       {
@@ -54,14 +55,12 @@ define ['stream','jquery', 'jqueryui', 'bootstrap'], (Stream, $)->
       stream.reset() for stream in @streams
 
     buildStream: (desc)->
-
       desc.token = @token
       stream = new Stream($.extend({}, @defaultDesc, desc))
       @streams[stream.options.el] = stream
       stream.build()
 
     oauthSupport: ->
-
       $('#auth-tools').show()
 
       # TODO check if cookie is still valid
