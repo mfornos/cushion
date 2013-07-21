@@ -1,8 +1,8 @@
 
 <div id="{{model.id}}" class="card {{ctype model.labels}}">
-  <div class="inner-card dragger">
-    <a class="comments tip" data-toggle="tooltip" data-placement="top" data-original-title="Toggle issue comments"><i class="icon-comments"></i> {{model.comments}}</a>
-    <span class="title tip" data-toggle="tooltip" data-placement="top" data-original-title="Toggle issue content">{{model.title}}</span>
+  <div class="inner-card dragger {{weight model}}">
+    <a class="comments"><i class="icon-comments"></i> {{model.comments}}</a>
+    <span class="title">{{model.title}}</span>
     {{#if model.body}}
       <span class="has-content"><i class="icon-ellipsis-horizontal"></i></span>
     	<div class="body" style="display:none">

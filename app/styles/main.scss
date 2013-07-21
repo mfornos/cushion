@@ -148,7 +148,7 @@ header {
     .wip {
       display: none;
       font-size: 1.3em;
-      color: #EDEDDD;
+      color: #DDD;
       border: none; 
     }
     .wip.exceeded {
@@ -166,9 +166,6 @@ header {
   h4.title, h5.title {
 
   }
-  h4 .wip, h5 .wip {
-    margin-top: 10px;
-  }
 }
 
 .card {
@@ -181,11 +178,6 @@ header {
   -webkit-box-shadow: 1px 1px 2px 1px #333;
   box-shadow: 1px 1px 2px 1px #333;
   margin: 5px 0 8px 0;
-  .dragger:hover {
-    -webkit-box-shadow: 0px 0px 0pt 2pt #CBE86B;
-    -moz-box-shadow: 0px 0px 0pt 2pt #CBE86B;
-    box-shadow: 0px 0px 0pt 2pt #CBE86B;
-  }
   .title, .body, .comment-body {
     text-shadow: 0 0 15px #fff, 0 0 15px #fff;
   }
@@ -247,15 +239,6 @@ header {
       text-shadow: none;
       display: block;
     }
-    .big {
-      margin-right: 10%;
-    }
-    .medium {
-      margin-right: 5%;
-    }
-    .small {
-      margin-right: 1%;
-    }
     .foot {
       clear: both;
       display: block;
@@ -263,6 +246,15 @@ header {
         text-decoration: none;
       }
     }
+  }
+  .big {
+    margin-right: 4%;
+  }
+  .medium {
+    margin-right: 2%;
+  }
+  .small {
+    margin-right: 1%;
   }
   .users {
     display: block;
@@ -331,8 +323,13 @@ header {
   .inner-card {
     background: #E6F1F6;
   }
-  .comments {
-    color: #498FD7;
+}
+
+.interaction {
+  background-color: #7B5882;
+  border-color: #7B5882;
+  .inner-card {
+    background: #F3E8FE;
   }
 }
 
@@ -341,8 +338,5 @@ header {
   border-color: #E94E77;
   .inner-card {
     background: #FFE8C7;
-  }
-  .comments {
-    color: #E94E77;
   }
 }
