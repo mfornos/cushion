@@ -131,13 +131,45 @@ define ['jquery', 'backbone', 'underscore'], ($, Backbone, _)->
 
     updateWIP: ->
       wip = $('.wip', $(@el).parent())
-      wipMax  = (parseInt wip.text(), 10)
-      itemsNo = @collection.models.length 
+      wipMax  = (parseInt wip.attr('data-max'), 10)
+      itemsNo = @collection.models.length
+      wip.val(itemsNo)
 
       if wip.length and  wipMax <= itemsNo
         wip.addClass if wipMax == itemsNo then 'limit' else 'exceeded'
       else
         wip.removeClass 'exceeded limit'
+
+
+      wip.data('fgColor', wip.css('color'))
+
+      wip.knob(
+        fgColor: wip.css('color')
+
+        draw: ->
+          ## "tron" case
+          if @$.data('skin') is 'tron'
+            a = @angle(@cv)           ## Angle
+            sat = @startAngle         ## Start angle
+            eat = sat + a             ## End angle
+
+            @g.lineWidth = @lineWidth
+
+            @o.cursor && (sat = eat - 0.3) && (eat = eat + 0.3)
+
+            @g.beginPath()
+            @g.strokeStyle = @o.fgColor
+            @g.arc(@xy, @xy, @radius - @lineWidth, sat, eat, false)
+            @g.stroke();
+
+            @g.lineWidth = 2
+            @g.beginPath();
+            @g.strokeStyle = @o.fgColor
+            @g.arc(@xy, @xy, @radius - @lineWidth + 1 + @lineWidth * 2 / 3, 0, 2 * Math.PI, false)
+            @g.stroke();
+
+            false
+      )
 
 
   CardView = class CardView extends Backbone.View

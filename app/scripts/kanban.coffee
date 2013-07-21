@@ -18,7 +18,7 @@ Usage:
   kanban.build()
 
 ###
-define ['stream','jquery', 'jqueryui', 'jqueryspin', 'bootstrap'], (Stream, $)->
+define ['stream','jquery', 'jqueryui', 'jqueryknob', 'jqueryspin', 'bootstrap'], (Stream, $)->
 
   class Kanban
 

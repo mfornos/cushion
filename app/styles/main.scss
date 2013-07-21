@@ -141,9 +141,15 @@ header {
     text-shadow: 0px 2px 1px #222;
     color: #DCDCDC;
     vertical-align: bottom;
+    .wip-wrap {
+      position:absolute;
+      display: inline;
+    }
     .wip {
+      display: none;
       font-size: 1.3em;
       color: #EDEDDD;
+      border: none; 
     }
     .wip.exceeded {
       color: #D40838;
@@ -159,6 +165,9 @@ header {
   }
   h4.title, h5.title {
 
+  }
+  h4 .wip, h5 .wip {
+    margin-top: 10px;
   }
 }
 

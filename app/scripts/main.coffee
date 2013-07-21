@@ -6,6 +6,7 @@ require.config
     jquery: '../bower_components/jquery/jquery'
     jqueryui: '../bower_components/jquery-ui/ui/jquery-ui'
     jqueryspin: '../bower_components/spin.js/jquery.spin'
+    jqueryknob: '../bower_components/jquery-knob/js/jquery.knob'
     bootstrap: 'vendor/bootstrap'
     spin: '../bower_components/spin.js/spin'
     marked: 'vendor/marked'
@@ -17,6 +18,7 @@ require.config
     json2: '../bower_components/hbs/hbs/json2'
   shim: 
     jqueryui: 'jquery'
+    jqueryknob: 'jquery'
     underscore: 
       exports: '_'
     backbone: 
