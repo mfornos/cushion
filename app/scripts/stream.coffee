@@ -12,7 +12,7 @@ define ['jquery', 'backbone', 'underscore'], ($, Backbone, _)->
 
     constructor: (@options)->
 
-    build: =>
+    build: ->
       loc = if _.isFunction @options.url then @options.url @options.token else @options.url
       @issues = new StreamModel [], url: loc
         
@@ -23,14 +23,14 @@ define ['jquery', 'backbone', 'underscore'], ($, Backbone, _)->
 
       ## TODO backbone-poller to sync every N minutes
 
-    get: (cid)=>
+    get: (cid)->
       @issues.get(cid)
 
-    reset: =>
+    reset: ->
       @issues.reset()
       @showStream()
 
-    showStream: =>
+    showStream: ->
       @issues.fetch(
         beforeSend: =>
           $(@streamView.el).spin('large', '#fff')
@@ -131,7 +131,7 @@ define ['jquery', 'backbone', 'underscore'], ($, Backbone, _)->
 
     updateWIP: ->
       wip = $('.wip', $(@el).parent())
-      wipMax  = (parseInt wip.attr('data-max'), 10)
+      wipMax  = (parseInt wip.text(), 10)
       itemsNo = @collection.models.length
       wip.val(itemsNo)
 
@@ -139,37 +139,6 @@ define ['jquery', 'backbone', 'underscore'], ($, Backbone, _)->
         wip.addClass if wipMax == itemsNo then 'limit' else 'exceeded'
       else
         wip.removeClass 'exceeded limit'
-
-
-      wip.data('fgColor', wip.css('color'))
-
-      wip.knob(
-        fgColor: wip.css('color')
-
-        draw: ->
-          ## "tron" case
-          if @$.data('skin') is 'tron'
-            a = @angle(@cv)           ## Angle
-            sat = @startAngle         ## Start angle
-            eat = sat + a             ## End angle
-
-            @g.lineWidth = @lineWidth
-
-            @o.cursor && (sat = eat - 0.3) && (eat = eat + 0.3)
-
-            @g.beginPath()
-            @g.strokeStyle = @o.fgColor
-            @g.arc(@xy, @xy, @radius - @lineWidth, sat, eat, false)
-            @g.stroke();
-
-            @g.lineWidth = 2
-            @g.beginPath();
-            @g.strokeStyle = @o.fgColor
-            @g.arc(@xy, @xy, @radius - @lineWidth + 1 + @lineWidth * 2 / 3, 0, 2 * Math.PI, false)
-            @g.stroke();
-
-            false
-      )
 
 
   CardView = class CardView extends Backbone.View
