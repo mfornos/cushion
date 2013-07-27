@@ -104,7 +104,7 @@ define ['jquery', 'backbone', 'underscore'], ($, Backbone, _)->
       v  = new CardView model: card
       id = $(@el).attr('id') ## kanban section id
       v.template = @cardTemplate
-      v.commentsView = @commentsTemplate
+      v.commentsView.template = @commentsTemplate
 
       $(@el).append v.render(@attach, id).el
 
