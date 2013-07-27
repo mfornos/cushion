@@ -2,7 +2,7 @@
 'use strict'
 
 require.config
-  paths: 
+  paths:
     jquery: '../bower_components/jquery/jquery'
     jqueryui: '../bower_components/jquery-ui/ui/jquery-ui'
     jqueryspin: '../bower_components/spin.js/jquery.spin'
@@ -15,17 +15,19 @@ require.config
     underscore: '../bower_components/hbs/hbs/underscore'
     backbone: '../bower_components/backbone-amd/backbone'
     json2: '../bower_components/hbs/hbs/json2'
-  shim: 
-    jqueryui: 'jquery'
-    underscore: 
+  shim:
+    jqueryui:
+      deps: [ 'jquery' ],
+      exports: 'jquery'
+    underscore:
       exports: '_'
-    backbone: 
+    backbone:
       deps: [
         'underscore'
         'jquery'
       ]
       exports: 'Backbone'
-    bootstrap: 
+    bootstrap:
       deps: ['jquery']
       exports: 'jquery'
     marked:

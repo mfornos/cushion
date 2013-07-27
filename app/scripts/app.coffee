@@ -4,21 +4,21 @@
 ###
 require ['kanban', 'oauth'], (Kanban, OAuthConfig)->
 
-  kanban = new Kanban [ 
+  kanban = new Kanban [
         ## paulmillr/ostio
         ## mitsuhiko/flask
         
         { url: 'https://api.github.com/repos/mfornos/cushion/issues?state=open&per_page=10', el:  '#todo' }
         { url: 'https://api.github.com/repos/paulmillr/ostio/issues?state=closed&per_page=10', el:  '#done' }
-        { url: 'https://api.github.com/repos/mfornos/humanize/issues?state=open', el:  '#urgent' } 
+        { url: 'https://api.github.com/repos/mfornos/humanize/issues?state=open', el:  '#urgent' }
 
         
-        ##{ 
-        ##  el:  '#urgent' 
+        ##{
+        ##  el:  '#urgent'
         ##  url: "#{repoUrl}?state=open" 
         ##}
-        ##{ 
-        ##  el:  '#done' 
+        ##{
+        ##  el:  '#done'
         ##  url: "#{repoUrl}?state=closed"
         ##}
         
@@ -29,8 +29,9 @@ require ['kanban', 'oauth'], (Kanban, OAuthConfig)->
 
   ## Run with OAuth
   ##opts = OAuthConfig.build
-  ##        repoUrl: 'https://api.github.com/repos/your/repo/issues'
-  ##        clientId: '[YOUR_CLIENT_ID]'
-  ##        scope: 'repo' 
-  ## kanban.build opts
+  ##  repoUrl: 'https://api.github.com/repos/your/repo/issues'
+  ##  clientId: '[YOUR_CLIENT_ID]'
+  ##  scope: 'public_repo'
+
+  ##kanban.build opts
 

@@ -18,16 +18,16 @@ Usage:
   kanban.build()
 
 ###
-define ['stream','jquery', 'jqueryui', 'jqueryspin', 'bootstrap'], (Stream, $)->
+define ['stream','jquery', 'persistence', 'jqueryui', 'jqueryspin', 'bootstrap'], (Stream, $, CookieStore)->
 
   class Kanban
 
     streams: {}
     token: {}
 
-    defaultDesc: 
-      { 
-        templates: 
+    defaultDesc:
+      {
+        templates:
           card: 'hbs!template/card'
           comment: 'hbs!template/comment'
       }
@@ -35,6 +35,9 @@ define ['stream','jquery', 'jqueryui', 'jqueryspin', 'bootstrap'], (Stream, $)->
       {
         selector: '.drag-zone'
         placeholder: 'card-holder'
+
+        ## Defaults to cookie based storage
+        store: new CookieStore
 
         ## Callbacks
         onDrop: (ref, item, token, from, to, stream, event, ui, element)->
@@ -47,7 +50,7 @@ define ['stream','jquery', 'jqueryui', 'jqueryspin', 'bootstrap'], (Stream, $)->
           Accept: 'application/json'
           'Content-Type': 'application/json'
 
-    build: (opts)=> 
+    build: (opts)=>
       $.extend(@options, opts)
       if @options.oauth then @oauthSupport() else @init()
 
@@ -58,20 +61,20 @@ define ['stream','jquery', 'jqueryui', 'jqueryspin', 'bootstrap'], (Stream, $)->
       desc.token = @token
       stream = new Stream($.extend({}, @defaultDesc, desc))
       @streams[stream.options.el] = stream
-      stream.build()
+      stream.build(@)
 
     oauthSupport: ->
       $('#auth-tools').show()
 
-      # TODO check if cookie is still valid
-      @token = Cookies.read('access_token')
+      console.log(@options.store)
+      @token = @options.store.read('access_token')
       return @authOk() if @token
 
       m = window.location.href.match(/\?code=(.*)/)
       if m
         $.getJSON(@options.oauth.gatekeeper(m[1]), (data)=>
           if data.token
-            Cookies.write('access_token', data.token)
+            @options.store.save('access_token', data.token)
             toUrl = (l) -> "#{l.protocol}//#{l.hostname}:#{l.port}#{l.pathname}"
             window.location = toUrl window.location
         ).error =>
@@ -81,7 +84,7 @@ define ['stream','jquery', 'jqueryui', 'jqueryspin', 'bootstrap'], (Stream, $)->
 
     authOk: ->
       $.ajaxSetup
-        cache: false 
+        cache: false
         headers:
           Authorization: "token #{@token}"
           Accept: 'application/json'
@@ -91,8 +94,10 @@ define ['stream','jquery', 'jqueryui', 'jqueryspin', 'bootstrap'], (Stream, $)->
       @init()
 
     logout: ->
-      Cookies.erase('access_token')
+      @options.store.remove('access_token')
       window.location = window.location
+
+    reorder: (el)-> @options.store.onReorder el
 
     init: ->
       $(@options.selector).sortable(
@@ -102,40 +107,25 @@ define ['stream','jquery', 'jqueryui', 'jqueryspin', 'bootstrap'], (Stream, $)->
         cursor: 'move'
         ## handle: '.ui-selected .dragger'
         placeholder: @options.placeholder
-      ).droppable(drop: (event, ui) =>
-        
-          to = $(event.target).attr('id')
-          from = $('.card', ui.draggable).data('section')
-          s = @streams['#' + from]
 
-          element = $(event.toElement)
-          unless element.hasClass 'card'
-            element = element.closest('.card')
+        update: (event, ui)-> @options.store.onUpdate($(@), event, ui)
+      ).droppable(drop: (event, ui)=>
 
-          item = s.get(element.attr('id'))
+        to = $(event.target).attr('id')
+        from = $(ui.draggable).data('section')
+        s = @streams["##{from}"]
 
-          @options.onDrop(@, item, @token, from, to, s, event, ui, element)
+        element = $(event.toElement)
+        unless element.hasClass 'card'
+          element = element.closest('.card')
+
+        item = s.get(element.attr('id'))
+
+        @options.onDrop(@, item, @token, from, to, s, event, ui, element)
 
       ).disableSelection()
 
       @buildStream(desc) for desc in @descriptors
-
-
-  class Cookies
-
-    @read: (name)->
-      ca = document.cookie.split(';')
-      for p in ca
-        kv = p.split('=')
-        return kv[1] if kv[0] is name
-   
-    @write: (name, value, expire = '2015-01-01 12:00:00')->
-      today = new Date()
-      expires = new Date(expire)      
-      document.cookie = "#{name}=#{escape(value)};expires=#{expires.toGMTString()}"
-
-    @erase: (name)->
-      Cookies.write(name, '', '1970-01-01 12:00:00')
    
 
   Kanban

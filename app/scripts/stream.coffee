@@ -12,12 +12,14 @@ define ['jquery', 'backbone', 'underscore'], ($, Backbone, _)->
 
     constructor: (@options)->
 
-    build: ->
+    build: (@kanban)->
       loc = if _.isFunction @options.url then @options.url @options.token else @options.url
       @issues = new StreamModel [], url: loc
         
       @streamView = new StreamView collection: @issues, el: $(@options.el)
-      @streamView.templates = @options.templates
+      @streamView.initTemplates @options.templates
+      @streamView.kanban = @kanban
+
 
       @showStream()
 
@@ -50,7 +52,7 @@ define ['jquery', 'backbone', 'underscore'], ($, Backbone, _)->
 
   ###
 
-  class CardModel extends Backbone.Model 
+  class CardModel extends Backbone.Model
     initialize : ->
       @comments = new CommentsModel
       @comments.url = @.get('comments_url')
@@ -88,22 +90,27 @@ define ['jquery', 'backbone', 'underscore'], ($, Backbone, _)->
   class StreamView extends Backbone.View
     initialize: -> @collection.bind('reset', @render)
 
+    initTemplates: (templates)->
+      require [templates.card, templates.comment], (cardTmpl, commentTmpl)=>
+        @cardTemplate = cardTmpl
+        @commentsTemplate = commentTmpl
+
     render: ->
-      @appendCard card for card in @collection.models 
+      @appendCard card for card in @collection.models
       @updateWIP()
+      @kanban.reorder($(@el))
 
     appendCard: (card)->
       v  = new CardView model: card
       id = $(@el).attr('id') ## kanban section id
+      v.template = @cardTemplate
+      v.commentsView = @commentsTemplate
 
-      require [@templates.card, @templates.comment], (cardTmpl, commentTmpl)=>
-        v.template = cardTmpl
-        v.commentsView.template = commentTmpl
-        $(@el).append v.render(@attach, id).el
+      $(@el).append v.render(@attach, id).el
 
     attach: (card, el, id)->
       ## Target card
-      t = $('#' + card.id, el)
+      t = $(el)
       t.data('section', id)
 
       t.click (e)->
@@ -115,7 +122,7 @@ define ['jquery', 'backbone', 'underscore'], ($, Backbone, _)->
       $('.title', t).click (e) ->
         cel = $(@).closest('.card')
         body = $('div.body', cel)
-        if body.length 
+        if body.length
           body.slideToggle('fast')
           $('.has-content', cel).toggle()
         e.preventDefault()
@@ -164,11 +171,11 @@ define ['jquery', 'backbone', 'underscore'], ($, Backbone, _)->
             @commentsView.el = $('.comments-content', @el)
             @commentsView.render()
         )
-      else 
+      else
         @commentsView.toggle()
 
     render: (attach, id)->
-      $(@el).html @template model: @model.toJSON()
+      @el = $(@template model: @model.toJSON())
       attach(@model, @el, id)
       @
       

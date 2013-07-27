@@ -13,9 +13,9 @@ define ['jquery'], ($)->
             $('header').stop().animate({ marginTop:'-70px' },{ complete: ->
               $('#puller').show('blind')
             })
-          $('#puller').mouseenter -> 
-            OAuthConfig.timeout = setTimeout( 
-              -> 
+          $('#puller').mouseenter ->
+            OAuthConfig.timeout = setTimeout(
+              ->
                 $('header').stop().animate({ marginTop:'0px' }, { complete: -> $('#puller').hide()})
               , 300
             )
@@ -29,7 +29,7 @@ define ['jquery'], ($)->
 
           $('.main').click ->
             if $('header').css('margin-top') == '0px'
-              $('header #close').click() 
+              $('header #close').click()
 
           $('.logout').click -> k.logout()
           $('#login-wrap').hide()
@@ -44,11 +44,11 @@ define ['jquery'], ($)->
 
       ## Callbacks
       onDrop: (ref, item, token, from, to)->
-          $.ajax
-            url : "#{o.repoUrl}/#{item.get('number')}"
-            type : 'PATCH'
-            data : JSON.stringify(state: if to == 'done' then 'closed' else 'open')
-            success : -> ref.refresh()
-            error : (jqXHR, textStatus, errorThrown)->
-              console.log("The following error occured: #{textStatus}", errorThrown)
+        $.ajax
+          url : "#{o.repoUrl}/#{item.get('number')}"
+          type : 'PATCH'
+          data : JSON.stringify(state: if to == 'done' then 'closed' else 'open')
+          success : -> ref.refresh()
+          error : (jqXHR, textStatus, errorThrown)->
+            console.log("The following error occured: #{textStatus}", errorThrown)
   
