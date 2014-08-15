@@ -8,7 +8,7 @@ Features
 
 * Nice looking, expandable content, card rendering
 * Define board layouts with arbitrary swimlanes and states
-* WIP indicators and visual alerts in swimlanes
+* WIP indicators and visual alerts
 * Mix issues from multiple projects and trackers
 * Update card state with drag and drop interactions
 * Fully client-side
@@ -45,7 +45,7 @@ Now you can peek and poke around the project, you will see your code changes ins
 Build
 -----
 
-Build a distribution just run: 
+Build a distribution just running:
 
 `$> grunt`
 
