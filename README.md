@@ -58,7 +58,7 @@ An optimized version suitable for deployment will be created in the _dist/_ dire
 
 * * * *
 
-__NOTE__ to configure write access to your trackers a running OAuth gatekeeper is requeried.
+__NOTE__ write access requires OAuth gatekeeper.
 
 // 
 
