@@ -1,17 +1,60 @@
 Cushion
 =======
 
-Flexible and lightweight __prototype__ to build kanban views from issue trackers data. Written in coffeescript with Backbone and Handlebars.js for templating.
+Flexible and lightweight __prototype__ to build kanban boards from issue trackers data.
+
+Features
+--------
+
+* Nice looking, expandable content, card rendering
+* Define board layouts with arbitrary swimlanes and states
+* Allow WIP indicators and visual alerts in swimlanes
+* Mix issues from multiple projects and trackers
+* Update card state with drag and drop interactions
+* Fully client-side
+
+Screenshots
+-----------
+
+Click to view.
+
+[![Test Board](https://raw.githubusercontent.com/mfornos/cushion/screenshots/cushion-board-00-th.png)](https://raw.githubusercontent.com/mfornos/cushion/screenshots/cushion-board-00.png)
+
+[![Test Board Expanded](https://raw.githubusercontent.com/mfornos/cushion/screenshots/cushion-board-01-th.png)](https://raw.githubusercontent.com/mfornos/cushion/screenshots/cushion-board-01.png)
+
+[![Test Board drag](https://raw.githubusercontent.com/mfornos/cushion/screenshots/cushion-board-00-dnd-th.png)](https://raw.githubusercontent.com/mfornos/cushion/screenshots/cushion-board-dnd-00.png)
+
+[![Test Board drop](https://raw.githubusercontent.com/mfornos/cushion/screenshots/cushion-board-01-dnd-th.png)](https://raw.githubusercontent.com/mfornos/cushion/screenshots/cushion-board-dnd-01.png)
 
 
-Getting Started
----------------
+Try it
+------
+
+### Set up
 
 1. git clone (or fork)
-2. bower install
-3. npm install
-4. grunt server
+2. npm install
+3. bower install
 
-Then peek and poke around the project... you will see code changes instantly.
+### Run
 
-To build a distribution run `grunt` or `grunt build`. An optimized deployable version will be created at _dist/_.
+`$> grunt server`
+
+Now you can peek and poke around the project, you will see your code changes instantly.
+
+* * * *
+
+__NOTE__ to configure write access to your trackers a running OAuth gatekeeper is requeried.
+
+Build
+-----
+
+Build a distribution just run: 
+
+`grunt` or `grunt build`
+
+An optimized version suitable for deployment will be created in the _dist/_ directory.
+
+
+// 
+
