@@ -8,7 +8,7 @@ Features
 
 * Nice looking, expandable content, card rendering
 * Define board layouts with arbitrary swimlanes and states
-* Allow WIP indicators and visual alerts in swimlanes
+* WIP indicators and visual alerts in swimlanes
 * Mix issues from multiple projects and trackers
 * Update card state with drag and drop interactions
 * Fully client-side
