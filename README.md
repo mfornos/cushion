@@ -22,9 +22,9 @@ Click to view.
 
 [![Test Board Expanded](https://raw.githubusercontent.com/mfornos/cushion/screenshots/cushion-board-01-th.png)](https://raw.githubusercontent.com/mfornos/cushion/screenshots/cushion-board-01.png)
 
-[![Test Board drag](https://raw.githubusercontent.com/mfornos/cushion/screenshots/cushion-board-00-dnd-th.png)](https://raw.githubusercontent.com/mfornos/cushion/screenshots/cushion-board-dnd-00.png)
+[![Test Board drag](https://raw.githubusercontent.com/mfornos/cushion/screenshots/cushion-board-dnd-00-th.png)](https://raw.githubusercontent.com/mfornos/cushion/screenshots/cushion-board-dnd-00.png)
 
-[![Test Board drop](https://raw.githubusercontent.com/mfornos/cushion/screenshots/cushion-board-01-dnd-th.png)](https://raw.githubusercontent.com/mfornos/cushion/screenshots/cushion-board-dnd-01.png)
+[![Test Board drop](https://raw.githubusercontent.com/mfornos/cushion/screenshots/cushion-board-dnd-01-th.png)](https://raw.githubusercontent.com/mfornos/cushion/screenshots/cushion-board-dnd-01.png)
 
 
 Try it
@@ -42,19 +42,23 @@ Try it
 
 Now you can peek and poke around the project, you will see your code changes instantly.
 
-* * * *
-
-__NOTE__ to configure write access to your trackers a running OAuth gatekeeper is requeried.
-
 Build
 -----
 
 Build a distribution just run: 
 
-`grunt` or `grunt build`
+`$> grunt`
+
+or
+
+`$> grunt build`
 
 An optimized version suitable for deployment will be created in the _dist/_ directory.
 
+
+* * * *
+
+__NOTE__ to configure write access to your trackers a running OAuth gatekeeper is requeried.
 
 // 
 
