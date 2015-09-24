@@ -1,1 +1,4 @@
 * text=auto
+app/styles/jquery-ui/* linguist-vendored
+app/styles/faw/scss/* linguist-vendored
+app/scripts/vendor/* linguist-vendored
