@@ -1,5 +1,6 @@
 * text=auto
 .htaccess linguist-vendored=true
-app/styles/jquery-ui/* linguist-vendored
-app/styles/faw/scss/* linguist-vendored
-app/scripts/vendor/* linguist-vendored
+bootstrap.js linguist-vendored=true
+marked.js linguist-vendored=true
+app/styles/* linguist-vendored
+app/styles/main.scss linguist-vendored=false
